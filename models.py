@@ -20,10 +20,5 @@ class User(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     first_name = db.Column(db.String(20), nullable=False)
     last_name = db.Column(db.String(20), nullable=False)
-    image_url = db.Column(db.String(
-    ), default='https://www.pngkey.com/png/detail/230-2301779_best-classified-apps-default-user-profile.png')
-    hunger = db.Column(db.Integer, nullable=False, default=20)
-
-    @classmethod
-    def get_all_users(cls):
-        return cls.query.all()
+    image_url = db.Column(
+        db.Text, default='https://www.pngkey.com/png/detail/230-2301779_best-classified-apps-default-user-profile.png')
