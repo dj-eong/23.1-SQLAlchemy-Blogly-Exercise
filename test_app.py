@@ -31,13 +31,6 @@ class BloglyTestCase(TestCase):
     def tearDown(self):
         db.session.rollback()
 
-    def test_home_page_redirect(self):
-        with app.test_client() as client:
-            resp = client.get('/')
-
-            self.assertEqual(resp.status_code, 302)
-            self.assertEqual(resp.location, 'http://localhost/users')
-
     def test_list_users(self):
         with app.test_client() as client:
             resp = client.get("/users")
