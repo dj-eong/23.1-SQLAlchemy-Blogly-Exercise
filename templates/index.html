@@ -5,7 +5,7 @@
 {% for post in posts %}
 <h2><a href="/posts/{{post.id}}">{{post.title}}</a></h2>
 <p>{{post.content}}</p>
-<p>By <a href="/users/{{post.user.id}}">{{post.user.first_name}} {{post.user.last_name}}</a> on {{post.created_at}}
+<p>By <a href="/users/{{post.user.id}}">{{post.user.first_name}} {{post.user.last_name}}</a> on {{post.convert_date()}}
 </p>
 {% endfor %}
 

@@ -1,6 +1,7 @@
 """Models for Blogly."""
 
 from flask_sqlalchemy import SQLAlchemy
+from datetime import datetime
 
 db = SQLAlchemy()
 
@@ -36,13 +37,10 @@ class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     title = db.Column(db.Text, nullable=False)
     content = db.Column(db.Text, nullable=False)
-    created_at = db.Column(db.DateTime, server_default=db.func.now())
+    created_at = db.Column(db.DateTime, default=datetime.now())
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
 
     # user = db.relationship('User', backref='posts')
 
     def convert_date(self):
-        string = str(self.created_at)
-        if string[5:7] == '03':
-            return 'March is goood'
-        return string[5:6]
+        return self.created_at.strftime('%B %d, %Y at %I:%M %p')
