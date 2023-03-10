@@ -24,8 +24,7 @@ class User(db.Model):
     image_url = db.Column(
         db.Text, default='https://www.pngkey.com/png/detail/230-2301779_best-classified-apps-default-user-profile.png')
 
-    posts = db.relationship('Post', backref='user',
-                            cascade='all, delete-orphan')
+    posts = db.relationship('Post', cascade='all, delete', backref='user')
 
 
 class Post(db.Model):
@@ -42,5 +41,28 @@ class Post(db.Model):
 
     # user = db.relationship('User', backref='posts')
 
+    tags = db.relationship('Tag', secondary='posts_tags', backref='posts')
+
     def convert_date(self):
         return self.created_at.strftime('%B %d, %Y at %I:%M %p')
+
+
+class Tag(db.Model):
+    __tablename__ = 'tags'
+
+    def __repr__(self):
+        return f'<Tag id: {self.id}, name: {self.name}>'
+
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    name = db.Column(db.Text, nullable=False, unique=True)
+
+
+class PostTag(db.Model):
+    __tablename__ = 'posts_tags'
+
+    def __repr__(self):
+        return f'<PostTag post_id: {self.post_id}, tag_id: {self.tag_id}>'
+
+    post_id = db.Column(db.Integer, db.ForeignKey(
+        'posts.id'), primary_key=True)
+    tag_id = db.Column(db.Integer, db.ForeignKey('tags.id'), primary_key=True)

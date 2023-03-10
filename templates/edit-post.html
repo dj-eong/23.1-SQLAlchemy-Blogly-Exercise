@@ -5,9 +5,14 @@
 <form action="/posts/{{post.id}}/edit" method="POST">
     <input type="text" name="title" value="{{post.title}}" placeholder="title">
     <br>
-    <textarea name="content" placeholder="Content">{{post.content}}</textarea>
+    <textarea name="content" placeholder="Content" cols="50" rows="10">{{post.content}}</textarea>
     <br>
-    <a href="/users/{{post.user.id}}">
+    {% for tag in tags %}
+    <input type="checkbox" id="{{tag.id}}" name="tag_name" value="{{tag.id}}" {% if post in tag.posts %}checked{% else
+        %}unchecked{% endif %}>
+    <label for="{{tag.id}}">{{tag.name}}</label><br>
+    {% endfor %}
+    <a href="/posts/{{post.id}}">
         <button type="button">Cancel</button>
     </a>
     <button>Save</button>

@@ -7,6 +7,10 @@
     <br>
     <textarea name="content" placeholder="Content" cols="50" rows="10"></textarea>
     <br>
+    {% for tag in tags %}
+    <input type="checkbox" id="{{tag.id}}" name="tag_name" value="{{tag.id}}">
+    <label for="{{tag.id}}">{{tag.name}}</label><br>
+    {% endfor %}
     <a href="/users/{{user.id}}">
         <button type="button">Cancel</button>
     </a>
