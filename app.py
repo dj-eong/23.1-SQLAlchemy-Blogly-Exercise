@@ -25,6 +25,13 @@ def home_page():
     return render_template('index.html', posts=front_page_posts)
 
 
+@app.errorhandler(404)
+def page_not_found(e):
+    """Show 404 NOT FOUND page."""
+
+    return render_template('404.html'), 404
+
+
 @app.route('/users')
 def show_users():
     users = User.query.all()
